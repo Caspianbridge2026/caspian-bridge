@@ -54,7 +54,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:80px;
   width:100px;height:100px;object-fit:contain;
   animation:spinWE 12s linear infinite;
   filter:drop-shadow(0 0 10px rgba(201,168,76,.35));}
-@keyframes spinWE{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes spinWE{
+  0%{transform:rotateY(0deg);}
+  100%{transform:rotateY(360deg);}
+}
 
 .nav-brand-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;
   color:var(--white);line-height:1.2;}
@@ -323,4 +326,790 @@ body.ar .product-detail{margin-left:0;margin-right:auto;}
 .fsub:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(201,168,76,.4);}
 
 /* FOOTER */
-footer{
+footer{background:var(--darker);border-top:1px solid var(--border);padding:65px 8% 32px;}
+.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px;}
+.footer-logo-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+
+/* FOOTER LOGO — also spins west to east, larger */
+.footer-logo-img{width:80px;height:80px;object-fit:contain;animation:spinWE 12s linear infinite;}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--white);}
+.footer-brand-sub{font-size:8.5px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-top:2px;}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;
+  color:rgba(201,168,76,.65);margin:12px 0 16px;}
+.footer-desc{font-size:13px;color:var(--gray2);line-height:1.9;max-width:270px;}
+.fcol h4{font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.fcol a{display:block;font-size:13px;color:var(--gray2);text-decoration:none;
+  margin-bottom:9px;cursor:pointer;transition:color .3s;}
+.fcol a:hover{color:var(--white);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;
+  padding-top:26px;border-top:1px solid var(--border);font-size:11px;color:var(--gray2);}
+.footer-bottom span{color:var(--gold);}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .nav-logo-img{width:70px;height:70px;}
+  .two-col,.contact-layout,.svc-grid,.ind-panel-grid{grid-template-columns:1fr;}
+  .three-col,.ind-grid,.why-grid,.vmv-grid,.ind-specs{grid-template-columns:1fr 1fr;}
+  .photo-grid{grid-template-columns:1fr 1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:36px;}
+  .page-hero{height:280px;}
+  .frow{grid-template-columns:1fr;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border);}
+  .process-steps{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- WhatsApp -->
+<a class="wa-float" href="https://wa.me/447752454544" target="_blank" title="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="none"><path d="M16 3C8.82 3 3 8.82 3 16c0 2.34.63 4.63 1.82 6.63L3 29l6.54-1.79C11.45 28.37 13.7 29 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3z" fill="white"/><path d="M22.5 19.6c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-1.8-.9-2.98-1.6-4.16-3.64-.31-.54.31-.5.9-1.67.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17 0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.89.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="#25D366"/></svg>
+</a>
+<div class="notif" id="notif"></div>
+  
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="goPage('home')">
+  <img class="nav-logo-img" src="data:image/png;base64,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
+  <div>
+      <div class="nav-brand-name">Caspian Bridge</div>
+      <div class="nav-brand-sub" id="nb-sub">International Ltd</div>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="goPage('home')" id="nl-home">Home</a></li>
+    <li><a onclick="goPage('about')" id="nl-about">About</a></li>
+    <li><a onclick="goPage('services')" id="nl-services">Services</a></li>
+    <li><a onclick="goPage('industries')" id="nl-industries">Industries</a></li>
+    <li><a onclick="goPage('why')" id="nl-why">Why Us</a></li>
+    <li><a onclick="goPage('contact')" id="nl-contact">Contact</a></li>
+  </ul>
+  <div class="nav-end">
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">عربي</button>
+    <button class="nav-cta" onclick="goPage('contact')" id="nl-cta">Inquiry</button>
+    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+  <!-- ════════════════════ HOME ════════════════════ -->
+<div class="pg on" id="pg-home">
+  <div class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide on" style="background-image:url('https://images.unsplash.com/photo-1581092334651-ddf19d754d35?w=1600&q=85')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1565715101966-af506795980e?w=1600&q=85')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=85')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?w=1600&q=85')"></div>
+    </div>
+    <div class="hero-mask"></div>
+    <div class="hero-grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="hero-dot"></span><span id="h-eyebrow">UK Registered — England & Wales</span></div>
+      <div class="hero-tagline" id="h-tagline">Bridging Markets. Building Opportunities.</div>
+      <h1 class="hero-h1" id="h-title"><strong>Caspian Bridge</strong><br><em>International Ltd</em></h1>
+      <p class="hero-sub" id="h-sub">UK-Registered International Trading, Procurement & Business Consultancy — connecting suppliers and buyers across <strong>Europe, the Middle East, Asia</strong> and worldwide through trusted trade partnerships and global business solutions.</p>
+      <div class="hero-btns">
+        <a class="btn-gold" onclick="goPage('contact')" id="h-btn1">Start an Inquiry</a>
+        <a class="btn-ghost" onclick="goPage('industries')" id="h-btn2">Our Industries</a>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num" id="hs1n">3+</div><div class="stat-lbl" id="hs1l">Regions Connected</div></div>
+      <div class="stat-item"><div class="stat-num" id="hs2n">4</div><div class="stat-lbl" id="hs2l">Core Industries</div></div>
+      <div class="stat-item"><div class="stat-num" id="hs3n">Global</div><div class="stat-lbl" id="hs3l">Procurement Network</div></div>
+      <div class="stat-item"><div class="stat-num" id="hs4n">UK</div><div class="stat-lbl" id="hs4l">Registered Company</div></div>
+    </div>
+  </div>
+
+  <!-- Real industry photo strip -->
+  <div class="photo-grid">
+    <div class="photo-cell">
+      <img src="https://images.unsplash.com/photo-1565715101966-af506795980e?w=600&q=80" alt="Oil Refinery">
+      <div class="photo-overlay"></div><div class="photo-label" id="ph1">Oil Refinery</div>
+    </div>
+    <div class="photo-cell">
+      <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Heavy Industry">
+      <div class="photo-overlay"></div><div class="photo-label" id="ph2">Heavy Industry</div>
+    </div>
+    <div class="photo-cell">
+      <img src="https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?w=600&q=80" alt="Oil Drilling">
+      <div class="photo-overlay"></div><div class="photo-label" id="ph3">Oil & Gas Drilling</div>
+    </div>
+    <div class="photo-cell">
+      <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&q=80" alt="Agriculture">
+      <div class="photo-overlay"></div><div class="photo-label" id="ph4">Agriculture</div>
+    </div>
+  </div>
+
+  <!-- Industries section -->
+  <section class="ind-section rev">
+    <div class="section-label" id="ind-tag">Core Industries</div>
+    <h2 class="section-h2" id="ind-h">What We <em>Trade & Source</em></h2>
+    <div class="gold-rule"></div>
+    <p class="body-text" id="ind-desc" style="max-width:640px;">Four primary sectors — active sourcing, trading and procurement capability across each, connecting verified global suppliers with buyers who need reliability, compliance and commercial expertise.</p>
+    <div class="ind-grid">
+      <div class="ind-card" onclick="goPage('industries')">
+        <div class="ind-icon">⛽</div>
+        <div class="ind-title" id="ic1-t">Energy & Petrochemicals</div>
+        <div class="ind-sub" id="ic1-s">Trading of petroleum products, chemical feedstocks and refined commodities across global markets.</div>
+        <div class="ind-tags">
+          <span class="ind-tag" id="ic1p1">Urea</span><span class="ind-tag" id="ic1p2">Sulphur</span>
+          <span class="ind-tag" id="ic1p3">Base Oil</span><span class="ind-tag" id="ic1p4">Petcoke</span>
+        </div>
+      </div>
+      <div class="ind-card" onclick="goPage('industries')">
+        <div class="ind-icon">🏭</div>
+        <div class="ind-title" id="ic2-t">Industrial Equipment</div>
+        <div class="ind-sub" id="ic2-s">Procurement of specialised industrial machinery, plant equipment and technical components.</div>
+        <div class="ind-tags">
+          <span class="ind-tag" id="ic2p1">Process Equipment</span>
+          <span class="ind-tag" id="ic2p2">Heavy Machinery</span>
+          <span class="ind-tag" id="ic2p3">Components</span>
+        </div>
+      </div>
+      <div class="ind-card" onclick="goPage('industries')">
+        <div class="ind-icon">🌾</div>
+        <div class="ind-title" id="ic3-t">Agriculture & Livestock</div>
+        <div class="ind-sub" id="ic3-s">Sourcing of agricultural commodities, farming inputs and livestock nutrition products.</div>
+        <div class="ind-tags">
+          <span class="ind-tag" id="ic3p1">Grain & Sugar</span>
+          <span class="ind-tag" id="ic3p2">Fertilisers</span>
+          <span class="ind-tag" id="ic3p3">Animal Feed</span>
+        </div>
+      </div>
+      <div class="ind-card" onclick="goPage('industries')">
+        <div class="ind-icon">🛒</div>
+        <div class="ind-title" id="ic4-t">Consumer Products</div>
+        <div class="ind-sub" id="ic4-s">International trading of FMCG, personal care and food & beverage products.</div>
+        <div class="ind-tags">
+          <span class="ind-tag" id="ic4p1">FMCG</span>
+          <span class="ind-tag" id="ic4p2">Personal Care</span>
+          <span class="ind-tag" id="ic4p3">Food & Beverage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Full-width refinery image -->
+  <div class="full-img-section rev">
+    <img src="https://images.unsplash.com/photo-1581092334651-ddf19d754d35?w=1600&q=80" alt="Industrial Operations">
+    <div class="full-img-overlay"></div>
+    <div class="full-img-content">
+      <div class="full-img-text">
+        <div class="section-label" id="fi-tag">Why Caspian Bridge</div>
+        <h2 class="section-h2" id="fi-h">UK Credibility. <em>Global Reach.</em></h2>
+        <div class="gold-rule"></div>
+        <p class="body-text" id="fi-desc">Operating under English law as a registered UK private limited company, we give every transaction the institutional credibility and legal certainty that inspires confidence on both sides of every deal — from European manufacturers to buyers across the Middle East, Asia and beyond.</p>
+        <br><br>
+        <a class="btn-gold" onclick="goPage('why')" id="fi-btn">Why Choose Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ ABOUT ════════════════════ -->
+<div class="pg" id="pg-about">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80')"></div>
+    <div class="page-hero-mask"></div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow" id="ab-ey">Our Story</div>
+      <h1 class="page-h1" id="ab-h1">About <em>Caspian Bridge</em></h1>
+    </div>
+  </div>
+  <section class="cs rev">
+    <div class="two-col">
+      <div>
+        <div class="section-label" id="ab1-tag">Who We Are</div>
+        <h2 class="section-h2" id="ab1-h">A Trusted <em>Commercial Bridge</em></h2>
+        <div class="gold-rule"></div>
+        <p class="body-text" id="ab1-p1">Caspian Bridge International Ltd is a <strong>United Kingdom registered company</strong> focused on international trade, procurement, sourcing and strategic business consultancy.</p>
+        <p class="body-text" style="margin-top:16px;" id="ab1-p2">Our mission is to create reliable commercial bridges between manufacturers, suppliers and buyers across <strong>Europe, the Middle East, Asia</strong> and worldwide — providing access to global markets through a trusted, UK-based commercial framework.</p>
+        <p class="body-text" style="margin-top:16px;" id="ab1-p3">We operate across four core sectors — <strong>Energy & Petrochemicals, Industrial Equipment, Agriculture & Livestock, and Consumer Products</strong> — combining deep product knowledge, an extensive supplier network and rigorous commercial standards.</p>
+        <div style="margin-top:32px;padding:26px;background:rgba(13,31,60,.5);border:1px solid var(--border);border-radius:3px;">
+          <div style="font-size:9.5px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;" id="ab-reg-tag">UK Legal Status</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.85;" id="ab-reg-text">Caspian Bridge International Ltd is a <strong style="color:#fff;">private limited company registered in England and Wales</strong>. All engagements are conducted under formal written agreements governed by English law.</div>
+        </div>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1581092334651-ddf19d754d35?w=800&q=80" style="width:100%;height:280px;object-fit:cover;border-radius:3px;filter:brightness(.75);margin-bottom:3px;" alt="Industrial">
+        <img src="https://images.unsplash.com/photo-1565715101966-af506795980e?w=800&q=80" style="width:100%;height:200px;object-fit:cover;border-radius:3px;filter:brightness(.7);margin-bottom:3px;" alt="Refinery">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" style="width:100%;height:160px;object-fit:cover;border-radius:3px;filter:brightness(.7);" alt="Factory">
+      </div>
+    </div>
+  </section>
+
+  <section style="background:linear-gradient(135deg,rgba(13,31,60,.7),rgba(6,14,26,.9));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 8%;" class="rev">
+    <div class="section-label" id="vmv-tag">Foundation</div>
+    <h2 class="section-h2" id="vmv-h">Vision, Mission <em>& Values</em></h2>
+    <div class="gold-rule"></div>
+    <div class="vmv-grid">
+      <div class="vmv-card"><div class="vmv-icon">🌐</div><div class="vmv-h" id="vmv1-h">Vision</div><div class="vmv-text" id="vmv1-t">To become one of the most trusted international trading and procurement partners — connecting emerging and established markets through a reliable, UK-based commercial gateway that inspires confidence on both sides of every transaction.</div></div>
+      <div class="vmv-card"><div class="vmv-icon">🎯</div><div class="vmv-h" id="vmv2-h">Mission</div><div class="vmv-text" id="vmv2-t">To deliver transparent, efficient and commercially viable solutions for global trade and sourcing — reducing complexity, mitigating risk and creating lasting commercial value for suppliers, buyers and business partners across all markets we serve.</div></div>
+      <div class="vmv-card"><div class="vmv-icon">⚖️</div><div class="vmv-h" id="vmv3-h">Values</div><div class="vmv-text" id="vmv3-t"><ul class="values-list"><li>Integrity in every transaction</li><li>Transparency in all commercial dealings</li><li>Reliability as a trusted partner</li><li>Long-term partnerships over short-term gain</li><li>Commercial excellence in every engagement</li></ul></div></div>
+    </div>
+  </section>
+
+  <section class="cs rev">
+    <div class="section-label" id="geo-tag">Geographic Reach</div>
+    <h2 class="section-h2" id="geo-h">Where We <em>Operate</em></h2>
+    <div class="gold-rule"></div>
+    <p class="body-text" id="geo-desc" style="max-width:660px;margin-bottom:50px;">We are not limited to any single region. Operating under a UK legal framework, we source from and supply to markets across every continent — Europe, Middle East, Asia, Africa and beyond.</p>
+    <div class="three-col">
+      <div class="vmv-card"><div style="font-size:26px;margin-bottom:12px;">🇬🇧</div><div class="vmv-h" id="geo1-h">Europe & UK</div><div class="vmv-text" id="geo1-t">Our home base and primary sourcing hub. UK legal framework, banking infrastructure and institutional credibility. Sourcing across Germany, Italy, France, Netherlands, UK and beyond.</div></div>
+      <div class="vmv-card"><div style="font-size:26px;margin-bottom:12px;">🌙</div><div class="vmv-h" id="geo2-h">Middle East & Gulf</div><div class="vmv-text" id="geo2-t">Primary client market. Active commercial relationships in UAE, Oman, Saudi Arabia, Qatar and Kuwait across energy, industrial and consumer sectors.</div></div>
+      <div class="vmv-card"><div style="font-size:26px;margin-bottom:12px;">🌍</div><div class="vmv-h" id="geo3-h">Global Reach</div><div class="vmv-text" id="geo3-t">Asia, Africa, the Americas and beyond. No geographic restrictions — we engage wherever qualified commercial opportunity exists, tailoring services to each client's specific requirements.</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ SERVICES ════════════════════ -->
+<div class="pg" id="pg-services">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1400&q=80')"></div>
+    <div class="page-hero-mask"></div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow" id="sv-ey">Our Services</div>
+      <h1 class="page-h1" id="sv-h1">What We <em>Do For You</em></h1>
+    </div>
+  </div>
+  <section class="cs rev">
+    <div class="section-label" id="sv-tag">Six Ways We Help</div>
+    <h2 class="section-h2" id="sv-h">Comprehensive <em>Commercial Services</em></h2>
+    <div class="gold-rule"></div>
+    <p class="body-text" id="sv-intro" style="max-width:680px;margin-bottom:50px;">From a single sourcing transaction to a fully managed procurement programme, Caspian Bridge provides commercial expertise, supplier relationships and UK institutional framework to deliver results anywhere in the world.</p>
+    <div class="svc-grid">
+      <div class="svc-card"><span class="svc-num">01</span><div class="svc-icon">🌐</div><div class="svc-title" id="sv1-t">International Trading</div><div class="svc-desc" id="sv1-d">We facilitate import and export transactions across multiple industries — acting as principal trader or commercial agent, with verified supplier relationships, rigorous documentation and full UK export control compliance.</div><ul class="svc-list"><li>Import & export across all active sectors</li><li>Principal trading and agency structures</li><li>Full documentation and compliance management</li><li>Currency and payment facilitation</li><li>Incoterms structuring and logistics</li></ul></div>
+      <div class="svc-card"><span class="svc-num">02</span><div class="svc-icon">🔍</div><div class="svc-title" id="sv2-t">Global Procurement</div><div class="svc-desc" id="sv2-d">We identify, evaluate and source reliable suppliers worldwide — handling the full procurement cycle from supplier identification and technical evaluation through to price negotiation, quality assurance and delivery management.</div><ul class="svc-list"><li>Global supplier identification and qualification</li><li>Technical specification review</li><li>Commercial negotiation and terms agreement</li><li>Quality inspection and factory audits</li><li>End-to-end delivery management</li></ul></div>
+      <div class="svc-card"><span class="svc-num">03</span><div class="svc-icon">🤝</div><div class="svc-title" id="sv3-t">Business Representation</div><div class="svc-desc" id="sv3-d">We act as commercial representatives for international manufacturers and buyers — providing a credible UK-based presence to facilitate market access, build relationships and execute commercial agreements.</div><ul class="svc-list"><li>UK-based commercial representation</li><li>Buyer and seller introduction</li><li>Brand and product positioning support</li><li>Commercial negotiation on behalf of clients</li><li>Ongoing relationship management</li></ul></div>
+      <div class="svc-card"><span class="svc-num">04</span><div class="svc-icon">📊</div><div class="svc-title" id="sv4-t">Market Entry Consultancy</div><div class="svc-desc" id="sv4-d">We support companies entering UK, European, Middle Eastern and Asian markets — providing strategic guidance, regulatory intelligence, partner identification and commercial planning grounded in practical trading experience.</div><ul class="svc-list"><li>Market entry strategy and planning</li><li>Regulatory and compliance advisory</li><li>Partner and distributor identification</li><li>Pricing and competitive landscape analysis</li><li>Commercial feasibility assessments</li></ul></div>
+      <div class="svc-card"><span class="svc-num">05</span><div class="svc-icon">📋</div><div class="svc-title" id="sv5-t">Contract Facilitation</div><div class="svc-desc" id="sv5-d">We assist clients throughout negotiation and execution processes — ensuring commercial agreements are clearly structured, legally sound and properly documented, providing both parties with confidence and transparency.</div><ul class="svc-list"><li>Commercial term negotiation support</li><li>Contract structure and documentation review</li><li>Escrow and payment structure facilitation</li><li>Dispute resolution support</li><li>Post-contract compliance oversight</li></ul></div>
+      <div class="svc-card"><span class="svc-num">06</span><div class="svc-icon">⛓️</div><div class="svc-title" id="sv6-t">Supply Chain Solutions</div><div class="svc-desc" id="sv6-d">We provide sourcing and logistics coordination for complex, multi-supplier procurement projects — managing vendor coordination, freight, customs and documentation to deliver integrated supply chain solutions.</div><ul class="svc-list"><li>Multi-supplier coordination and management</li><li>Freight and logistics planning</li><li>Customs documentation and clearance</li><li>Supply chain risk assessment</li><li>Progress reporting and transparency</li></ul></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ INDUSTRIES ════════════════════ -->
+<div class="pg" id="pg-industries">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?w=1400&q=80')"></div>
+    <div class="page-hero-mask"></div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow" id="in-ey">Our Sectors</div>
+      <h1 class="page-h1" id="in-h1">Industries We <em>Trade & Source</em></h1>
+    </div>
+  </div>
+  <section class="cs rev">
+    <div class="section-label" id="in-tag">Select a Sector</div>
+    <h2 class="section-h2" id="in-h2">Our <em>Active Trading</em> Sectors</h2>
+    <div class="gold-rule"></div>
+    <p class="body-text" id="in-intro" style="max-width:660px;">Real supplier relationships, verified product knowledge and established trading routes across four primary sectors. Click any sector to explore specific products and capabilities.</p>
+    <div class="ind-tabs">
+      <button class="ind-tab on" onclick="showInd('energy',this)" id="it1">⛽ Energy & Petrochemicals</button>
+      <button class="ind-tab" onclick="showInd('industrial',this)" id="it2">🏭 Industrial Equipment</button>
+      <button class="ind-tab" onclick="showInd('agri',this)" id="it3">🌾 Agriculture & Livestock</button>
+      <button class="ind-tab" onclick="showInd('consumer',this)" id="it4">🛒 Consumer Products</button>
+    </div>
+
+    <!-- ENERGY -->
+    <div class="ind-panel on" id="ind-energy">
+      <div class="ind-panel-grid">
+        <div>
+          <img class="ind-panel-img" src="https://images.unsplash.com/photo-1565715101966-af506795980e?w=700&q=80" alt="Oil Refinery">
+          <img class="ind-panel-img2" src="https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?w=700&q=80" alt="Drilling">
+          <div class="ind-specs">
+            <div class="spec-card"><div class="spec-label" id="s1l1">Trading Mode</div><div class="spec-val">CIF / FOB / DAP</div></div>
+            <div class="spec-card"><div class="spec-label" id="s1l2">Source Regions</div><div class="spec-val">Europe, CIS, Gulf</div></div>
+            <div class="spec-card"><div class="spec-label" id="s1l3">Documentation</div><div class="spec-val">COA, SGS, Q88</div></div>
+            <div class="spec-card"><div class="spec-label" id="s1l4">Compliance</div><div class="spec-val">UK Export Controls</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label" id="en-tag">Energy & Petrochemicals</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:10px;" id="en-h">Petroleum Products <em>& Chemical Feedstocks</em></h3>
+          <div class="gold-rule"></div>
+          <p class="body-text" id="en-desc">We source, trade and broker petroleum products and petrochemical feedstocks for refineries, distributors and industrial buyers worldwide. Full documentation, quality certification and compliance as standard across every transaction.</p>
+          <div class="product-list" style="margin-top:28px;">
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Urea (46% N)</div><div class="product-detail">Prilled & granular — agricultural grade</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Sulphur (Granular / Lumpy)</div><div class="product-detail">Industrial & fertiliser grade</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Base Oil (SN150 / SN500)</div><div class="product-detail">Group I & II — lubricant feedstock</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Petroleum Coke (Petcoke)</div><div class="product-detail">Fuel-grade & calcined — industrial use</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">LPG & Natural Gas Products</div><div class="product-detail">Bulk & bottled — industrial & commercial</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INDUSTRIAL -->
+    <div class="ind-panel" id="ind-industrial">
+      <div class="ind-panel-grid">
+        <div>
+          <img class="ind-panel-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80" alt="Industrial Equipment">
+          <img class="ind-panel-img2" src="https://images.unsplash.com/photo-1581092334651-ddf19d754d35?w=700&q=80" alt="Machinery">
+          <div class="ind-specs">
+            <div class="spec-card"><div class="spec-label">Service Type</div><div class="spec-val">Procurement & Supply</div></div>
+            <div class="spec-card"><div class="spec-label">Source Regions</div><div class="spec-val">Germany, Italy, UK, CZ</div></div>
+            <div class="spec-card"><div class="spec-label">Certifications</div><div class="spec-val">CE, ATEX, PED, ISO</div></div>
+            <div class="spec-card"><div class="spec-label">Inspection</div><div class="spec-val">3rd Party Available</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label" id="in2-tag">Industrial Equipment</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:10px;" id="in2-h">Machinery, Plant Equipment <em>& Technical Components</em></h3>
+          <div class="gold-rule"></div>
+          <p class="body-text" id="in2-desc">We procure and supply specialised industrial equipment for petrochemical plants, manufacturing facilities and infrastructure projects — with full technical evaluation, factory inspection and export documentation.</p>
+          <div class="product-list" style="margin-top:28px;">
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Petrochemical Process Equipment</div><div class="product-detail">Reactors, columns, pressure vessels</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Pumps, Valves & Actuators</div><div class="product-detail">ATEX certified — industrial grade</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Heat Exchangers</div><div class="product-detail">Shell & tube, plate type</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Heavy Machinery & CNC Equipment</div><div class="product-detail">Manufacturing & fabrication</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Control & Instrumentation Systems</div><div class="product-detail">SCADA, DCS, sensors</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Industrial Components & Spares</div><div class="product-detail">OEM & aftermarket</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGRICULTURE -->
+    <div class="ind-panel" id="ind-agri">
+      <div class="ind-panel-grid">
+        <div>
+          <img class="ind-panel-img" src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=700&q=80" alt="Agriculture">
+          <img class="ind-panel-img2" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=700&q=80" alt="Grain">
+          <div class="ind-specs">
+            <div class="spec-card"><div class="spec-label">Trading Mode</div><div class="spec-val">CIF / FOB</div></div>
+            <div class="spec-card"><div class="spec-label">Source Regions</div><div class="spec-val">Europe, CIS, S. America</div></div>
+            <div class="spec-card"><div class="spec-label">Certifications</div><div class="spec-val">Phytosanitary, COA, SGS</div></div>
+            <div class="spec-card"><div class="spec-label">Packaging</div><div class="spec-val">Bulk / Bagged / IBC</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label" id="ag-tag">Agriculture & Livestock</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:10px;" id="ag-h">Agricultural Commodities <em>& Farming Inputs</em></h3>
+          <div class="gold-rule"></div>
+          <p class="body-text" id="ag-desc">Agricultural products, farming inputs and livestock nutrition products for buyers across the Middle East, Asia and Africa — sourced from verified suppliers with phytosanitary certification and compliant export credentials.</p>
+          <div class="product-list" style="margin-top:28px;">
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Wheat, Barley & Grain</div><div class="product-detail">Human & feed grade</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Sugar (Refined ICUMSA 45)</div><div class="product-detail">Food grade, bulk & packed</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Fertilisers (NPK, DAP, Urea)</div><div class="product-detail">Agricultural grade — bagged & bulk</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Sunflower & Palm Oil</div><div class="product-detail">Food grade, refined</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Animal Feed & Livestock Nutrition</div><div class="product-detail">Formulated rations & supplements</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Seeds & Agrochemicals</div><div class="product-detail">Certified varieties, crop protection</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSUMER -->
+    <div class="ind-panel" id="ind-consumer">
+      <div class="ind-panel-grid">
+        <div>
+          <img class="ind-panel-img" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=700&q=80" alt="Consumer Products">
+          <img class="ind-panel-img2" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80" alt="FMCG">
+          <div class="ind-specs">
+            <div class="spec-card"><div class="spec-label">Trade Type</div><div class="spec-val">Import / Export / B2B</div></div>
+            <div class="spec-card"><div class="spec-label">Source Regions</div><div class="spec-val">Europe, UK, Asia</div></div>
+            <div class="spec-card"><div class="spec-label">Standards</div><div class="spec-val">CE, ISO, Halal</div></div>
+            <div class="spec-card"><div class="spec-label">MOQ</div><div class="spec-val">Subject to product</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label" id="cp-tag">Consumer Products</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:10px;" id="cp-h">FMCG, Personal Care <em>& Food & Beverage</em></h3>
+          <div class="gold-rule"></div>
+          <p class="body-text" id="cp-desc">International trade in branded and generic consumer goods — connecting European and global manufacturers with wholesale buyers across the Middle East, Asia and Africa.</p>
+          <div class="product-list" style="margin-top:28px;">
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">FMCG Products</div><div class="product-detail">Household, cleaning, general</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Personal Care & Hygiene</div><div class="product-detail">Branded & private label</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Food & Beverage Products</div><div class="product-detail">Packaged, processed, bulk</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Health & Wellness Products</div><div class="product-detail">Supplements, vitamins, OTC</div></div>
+            <div class="product-item"><div class="product-dot"></div><div class="product-name">Confectionery & Snacks</div><div class="product-detail">European branded & bulk</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ WHY US ════════════════════ -->
+<div class="pg" id="pg-why">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&q=80')"></div>
+    <div class="page-hero-mask"></div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow" id="why-ey">Our Advantage</div>
+      <h1 class="page-h1" id="why-h1">Why Choose <em>Caspian Bridge</em></h1>
+    </div>
+  </div>
+  <section class="cs rev">
+    <div class="section-label" id="why-tag1">The Difference</div>
+    <h2 class="section-h2" id="why-h2">Six Reasons Clients <em>Choose Us</em></h2>
+    <div class="gold-rule"></div>
+    <p class="body-text" id="why-intro" style="max-width:680px;margin-bottom:50px;">In international trade, the choice of partner matters as much as the product. We combine institutional credibility with commercial agility — delivering results through expertise, not promises.</p>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">🏛️</div><div class="why-title" id="wh1-t">UK Registered Company</div><div class="why-text" id="wh1-d">Operating under English law as a registered UK private limited company gives every transaction institutional credibility and legal certainty that inspires confidence in counterparties worldwide.</div></div>
+      <div class="why-card"><div class="why-icon">🌐</div><div class="why-title" id="wh2-t">Global Supplier Network</div><div class="why-text" id="wh2-d">An active network of verified suppliers and trading partners across Europe, the CIS, the Gulf and Asia — built through real commercial activity, not directories.</div></div>
+      <div class="why-card"><div class="why-icon">🗺️</div><div class="why-title" id="wh3-t">Multi-Market Experience</div><div class="why-text" id="wh3-d">We understand the commercial dynamics of every market we serve — anticipating problems before they arise and structuring transactions that work in practice.</div></div>
+      <div class="why-card"><div class="why-icon">👥</div><div class="why-title" id="wh4-t">Professional Procurement Team</div><div class="why-text" id="wh4-d">Sector expertise across energy products, industrial equipment, agricultural commodities and consumer goods — with rigorous commercial and compliance evaluation.</div></div>
+      <div class="why-card"><div class="why-icon">🤝</div><div class="why-title" id="wh5-t">Long-Term Relationships</div><div class="why-text" id="wh5-d">We are a long-term commercial partner, not a transactional intermediary. We invest in understanding our clients' businesses deeply to provide increasingly valuable support over time.</div></div>
+      <div class="why-card"><div class="why-icon">📋</div><div class="why-title" id="wh6-t">Transparent Practices</div><div class="why-text" id="wh6-d">Every engagement governed by a formal written agreement. Fees disclosed clearly at the outset — no hidden charges, no surprises, no ambiguity.</div></div>
+    </div>
+  </section>
+  <section style="background:linear-gradient(135deg,rgba(13,31,60,.6),rgba(6,14,26,.9));border-top:1px solid var(--border);padding:80px 8%;" class="rev">
+    <div class="section-label" id="proc-tag">How We Work</div>
+    <h2 class="section-h2" id="proc-h">Our 5-Step <em>Process</em></h2>
+    <div class="gold-rule"></div>
+    <div class="process-steps">
+      <div class="step-card"><div class="step-num">1</div><div class="step-title" id="pr1-t">Inquiry</div><div class="step-text" id="pr1-d">Share your requirement — products, quantities, destination and timeline.</div></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-title" id="pr2-t">Assessment</div><div class="step-text" id="pr2-d">We assess feasibility and respond within one business day.</div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-title" id="pr3-t">Sourcing</div><div class="step-text" id="pr3-d">We identify and verify qualified suppliers, negotiating terms on your behalf.</div></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-title" id="pr4-t">Agreement</div><div class="step-text" id="pr4-d">Formal commercial agreement executed with all terms confirmed.</div></div>
+      <div class="step-card"><div class="step-num">5</div><div class="step-title" id="pr5-t">Delivery</div><div class="step-text" id="pr5-d">Full logistics, customs and documentation coordination to final delivery.</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<div class="pg" id="pg-contact">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80')"></div>
+    <div class="page-hero-mask"></div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow" id="ct-ey">Get In Touch</div>
+      <h1 class="page-h1" id="ct-h1">Start a <em>Conversation</em></h1>
+    </div>
+  </div>
+  <section class="cs rev">
+    <div class="contact-layout">
+      <div class="cinfo-block">
+        <h3 id="ct-info-h">Contact Information</h3>
+        <p id="ct-info-p">We respond to all serious enquiries within one business day. For urgent requirements, WhatsApp is the fastest route to our team.</p>
+        <div class="cinfo-item"><div class="ci-icon">🏢</div><div><div class="ci-label">Company</div><span class="ci-val">Caspian Bridge International Ltd</span></div></div>
+        <div class="cinfo-item"><div class="ci-icon">📍</div><div><div class="ci-label">Registered In</div><span class="ci-val">United Kingdom — England & Wales</span></div></div>
+        <div class="cinfo-item"><div class="ci-icon">✉️</div><div><div class="ci-label" id="ci-l2">General Enquiries</div><a class="ci-val" href="mailto:info@caspibridge.com">info@caspibridge.com</a></div></div>
+                <div class="cinfo-item"><div class="ci-icon">📱</div><div><div class="ci-label" id="ci-l4">WhatsApp</div><a class="ci-val" href="https://wa.me/447752454544">+44 7752 454 544</a></div></div>
+        <div class="cinfo-item"><div class="ci-icon">🌐</div><div><div class="ci-label" id="ci-l5">Website</div><span class="ci-val">www.caspibridge.com</span></div></div>
+        <div class="hours-box">
+          <div class="hours-title" id="ct-hrs">Business Hours (GMT)</div>
+          <div class="hours-row"><span>Monday – Friday</span><span>09:00 – 18:00</span></div>
+          <div class="hours-row"><span>Saturday</span><span>By appointment</span></div>
+          <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+        </div>
+        <a class="wa-big-btn" href="https://wa.me/447752454544" target="_blank" style="margin-top:20px;">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><path d="M16 3C8.82 3 3 8.82 3 16c0 2.34.63 4.63 1.82 6.63L3 29l6.54-1.79C11.45 28.37 13.7 29 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3z" fill="white"/><path d="M22.5 19.6c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-1.8-.9-2.98-1.6-4.16-3.64-.31-.54.31-.5.9-1.67.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17 0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.89.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="#25D366"/></svg>
+          <span id="wa-cta">Chat on WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- CONTACT FORM — sends to info@caspibridge.com via FormSubmit -->
+      <div class="cform">
+        <div class="cform-h" id="cf-title">Send an Enquiry</div>
+        <div class="cform-sub" id="cf-sub">Tell us what you need. We will respond within one business day with an assessment and next steps. All enquiries are sent directly to our team.</div>
+        <form action="https://formsubmit.co/info@caspibridge.com" method="POST">
+          <input type="hidden" name="_subject" value="New Enquiry — Caspian Bridge International Ltd">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="box">
+          <div class="frow">
+            <div class="fg"><label id="cf-l1">Full Name *</label><input type="text" name="name" placeholder="Your full name" required></div>
+            <div class="fg"><label id="cf-l2">Email Address *</label><input type="email" name="email" placeholder="your@email.com" required></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label id="cf-l3">Company</label><input type="text" name="company" placeholder="Company name"></div>
+            <div class="fg"><label id="cf-l4">Country</label><input type="text" name="country" placeholder="Your country"></div>
+          </div>
+          <div class="fg"><label id="cf-l5">Phone / WhatsApp</label><input type="text" name="phone" placeholder="+971 50 000 0000"></div>
+          <div class="fg"><label id="cf-l6">Industry / Sector</label>
+            <select name="industry">
+              <option>Select sector...</option>
+              <option>Energy & Petrochemicals</option>
+              <option>Industrial Equipment</option>
+              <option>Agriculture & Livestock</option>
+              <option>Consumer Products</option>
+              <option>Other / General Enquiry</option>
+            </select>
+          </div>
+          <div class="fg"><label id="cf-l7">How Can We Help? *</label>
+            <textarea name="message" rows="6" placeholder="Please describe your requirement — products, quantities, destination, timeline and any other relevant details." required></textarea>
+          </div>
+          <button type="submit" class="fsub" id="cf-submit">SEND MESSAGE — info@caspibridge.com</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-row">
+        <img class="footer-logo-img" src="data:image/png;base64,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
+        <div>
+          <div class="footer-brand-name">Caspian Bridge</div>
+          <div class="footer-brand-sub">International Ltd</div>
+        </div>
+      </div>
+      <div class="footer-tagline">Bridging Markets. Building Opportunities.</div>
+      <p class="footer-desc" id="ft-desc">UK-registered international trading, procurement and business consultancy — connecting suppliers and buyers across Europe, the Middle East, Asia and worldwide.</p>
+      <div style="margin-top:16px;font-size:12px;color:var(--gray2);line-height:1.9;">
+        ✉ info@caspibridge.com<br>
+        📱 +44 7752 454 544 (WhatsApp)<br>
+        🌐 www.caspibridge.com
+      </div>
+    </div>
+    <div class="fcol"><h4 id="ft1-h">Company</h4><a onclick="goPage('home')">Home</a><a onclick="goPage('about')">About Us</a><a onclick="goPage('services')">Services</a><a onclick="goPage('industries')">Industries</a><a onclick="goPage('why')">Why Choose Us</a><a onclick="goPage('contact')">Contact</a></div>
+    <div class="fcol"><h4 id="ft2-h">Industries</h4><a onclick="goPage('industries')">Energy & Petrochemicals</a><a onclick="goPage('industries')">Industrial Equipment</a><a onclick="goPage('industries')">Agriculture & Livestock</a><a onclick="goPage('industries')">Consumer Products</a></div>
+    <div class="fcol"><h4 id="ft3-h">Services</h4><a onclick="goPage('services')">International Trading</a><a onclick="goPage('services')">Global Procurement</a><a onclick="goPage('services')">Business Representation</a><a onclick="goPage('services')">Market Entry</a><a onclick="goPage('services')">Supply Chain Solutions</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div id="ft-copy">© 2026 <span>Caspian Bridge International Ltd</span>. All Rights Reserved. Registered in England & Wales.</div>
+    <div>www.caspibridge.com</div>
+  </div>
+</footer>
+
+<script>
+/* CURSOR */
+const C=document.getElementById('cur'),C2=document.getElementById('cur2');
+document.addEventListener('mousemove',e=>{C.style.left=e.clientX+'px';C.style.top=e.clientY+'px';C2.style.left=e.clientX+'px';C2.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,.ind-card,.why-card,.vmv-card,.svc-card,.product-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>C2.classList.add('big'));
+  el.addEventListener('mouseleave',()=>C2.classList.remove('big'));
+});
+
+/* HERO SLIDESHOW */
+let si=0;const slides=document.querySelectorAll('.hero-slide');
+setInterval(()=>{slides[si].classList.remove('on');si=(si+1)%slides.length;slides[si].classList.add('on');},5000);
+
+/* PAGES */
+function goPage(n){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-'+n).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(doReveal,150);
+}
+
+/* REVEAL ON SCROLL */
+function doReveal(){
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.08});
+  document.querySelectorAll('.rev').forEach(r=>obs.observe(r));
+}
+doReveal();
+
+/* INDUSTRY TABS */
+function showInd(name,btn){
+  document.querySelectorAll('.ind-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.ind-panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ind-'+name).classList.add('on');
+}
+
+/* NAV SCROLL */
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.background=window.scrollY>80?'rgba(4,10,20,.99)':'rgba(10,22,40,.97)';});
+
+/* MOBILE MENU */
+function toggleMobile(){
+  const m=document.getElementById('navLinks');
+  const show=m.style.display!=='flex';
+  m.style.cssText=show?'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(4,10,20,.99);padding:20px 5%;border-bottom:1px solid rgba(201,168,76,.15);z-index:999;':'display:none;';
+}
+
+/* LANGUAGE */
+let isAr=false;
+const T={
+  en:{
+     'nb-sub':'International Ltd','nl-home':'Home','nl-about':'About','nl-services':'Services',
+    'nl-industries':'Industries','nl-why':'Why Us','nl-contact':'Contact','nl-cta':'Inquiry','langBtn':'عربي',
+    'h-eyebrow':'UK Registered — England & Wales',
+    'h-tagline':'Bridging Markets. Building Opportunities.',
+    'h-title':'<strong>Caspian Bridge</strong><br><em>International Ltd</em>',
+    'h-sub':'UK-Registered International Trading, Procurement & Business Consultancy — connecting suppliers and buyers across <strong>Europe, the Middle East, Asia</strong> and worldwide.',
+    'h-btn1':'Start an Inquiry','h-btn2':'Our Industries',
+    'hs1n':'3+','hs1l':'Regions Connected','hs2n':'4','hs2l':'Core Industries','hs3n':'Global','hs3l':'Procurement Network','hs4n':'UK','hs4l':'Registered Company',
+    'ph1':'Oil Refinery','ph2':'Heavy Industry','ph3':'Oil & Gas Drilling','ph4':'Agriculture',
+    'ind-tag':'Core Industries','ind-h':'What We <em>Trade & Source</em>',
+    'ind-desc':'Four primary sectors — active sourcing, trading and procurement capability across each.',
+    'ic1-t':'Energy & Petrochemicals','ic1-s':'Trading of petroleum products, chemical feedstocks and refined commodities.',
+    'ic1p1':'Urea','ic1p2':'Sulphur','ic1p3':'Base Oil','ic1p4':'Petcoke',
+    'ic2-t':'Industrial Equipment','ic2-s':'Procurement of specialised industrial machinery and plant equipment.',
+    'ic2p1':'Process Equipment','ic2p2':'Heavy Machinery','ic2p3':'Components',
+    'ic3-t':'Agriculture & Livestock','ic3-s':'Sourcing of agricultural commodities and livestock nutrition products.',
+    'ic3p1':'Grain & Sugar','ic3p2':'Fertilisers','ic3p3':'Animal Feed',
+    'ic4-t':'Consumer Products','ic4-s':'International trading of FMCG and food & beverage products.',
+    'ic4p1':'FMCG','ic4p2':'Personal Care','ic4p3':'Food & Beverage',
+    'fi-tag':'Why Caspian Bridge','fi-h':'UK Credibility. <em>Global Reach.</em>',
+    'fi-desc':'Operating under English law, we give every transaction the institutional credibility and legal certainty that inspires confidence on both sides of every deal.','fi-btn':'Why Choose Us',
+    'ab-ey':'Our Story','ab-h1':'About <em>Caspian Bridge</em>',
+    ab1-tag':'Who We Are','ab1-h':'A Trusted <em>Commercial Bridge</em>',
+    'ab1-p1':'Caspian Bridge International Ltd is a <strong>United Kingdom registered company</strong> focused on international trade, procurement, sourcing and strategic business consultancy.',
+    'ab1-p2':'Our mission is to create reliable commercial bridges between manufacturers, suppliers and buyers across <strong>Europe, the Middle East, Asia</strong> and worldwide.',
+    'ab1-p3':'We operate across four core sectors — <strong>Energy & Petrochemicals, Industrial Equipment, Agriculture & Livestock, and Consumer Products</strong>.',
+    'ab-reg-tag':'UK Legal Status','ab-reg-text':'Caspian Bridge International Ltd is a <strong style="color:#fff;">private limited company registered in England and Wales</strong>. All engagements are conducted under formal written agreements governed by English law.',
+    'vmv-tag':'Foundation','vmv-h':'Vision, Mission <em>& Values</em>',
+    'vmv1-h':'Vision','vmv1-t':'To become one of the most trusted international trading and procurement partners — connecting markets through a reliable, UK-based commercial gateway.',
+    'vmv2-h':'Mission','vmv2-t':'To deliver transparent, efficient and commercially viable solutions for global trade and sourcing — reducing complexity and creating lasting commercial value.',
+    'vmv3-h':'Values',
+    'geo-tag':'Geographic Reach','geo-h':'Where We <em>Operate</em>',
+    'geo-desc':'Not limited to any single region — sourcing from and supplying to markets across every continent.',
+    'geo1-h':'Europe & UK','geo1-t':'Our home base. UK legal framework, banking infrastructure and institutional credibility. Sourcing across the EU and beyond.',
+    'geo2-h':'Middle East & Gulf','geo2-t':'Primary client market. Active relationships in UAE, Oman, Saudi Arabia, Qatar and Kuwait across energy, industrial and consumer sectors.',
+    'geo3-h':'Global Reach','geo3-t':'Asia, Africa, the Americas and beyond — wherever qualified commercial opportunity exists.',
+    'sv-ey':'Our Services','sv-h1':'What We <em>Do For You</em>',
+    'sv-tag':'Six Ways We Help','sv-h':'Comprehensive <em>Commercial Services</em>',
+    'sv-intro':'From a single sourcing transaction to a fully managed procurement programme, we deliver results anywhere in the world.',
+    'sv1-t':'International Trading','sv1-d':'Import and export across multiple industries, with verified supplier relationships and full compliance.',
+    'sv2-t':'Global Procurement','sv2-d':'Full procurement cycle from supplier identification through delivery, on your behalf.',
+    'sv3-t':'Business Representation','sv3-d':'UK-based commercial presence to facilitate market access and execute commercial agreements.',
+    'sv4-t':'Market Entry Consultancy','sv4-d':'Strategic guidance for companies entering UK, European, Middle Eastern and Asian markets.',
+    'sv5-t':'Contract Facilitation','sv5-d':'Commercial agreements clearly structured, legally sound and properly documented.',
+    'sv6-t':'Supply Chain Solutions','sv6-d':'Multi-supplier coordination, freight, customs and documentation from source to destination.',
+    'in-ey':'Our Sectors','in-h1':'Industries We <em>Trade & Source</em>',
+    'in-tag':'Select a Sector','in-h2':'Our <em>Active Trading</em> Sectors',
+    'in-intro':'Real supplier relationships, verified product knowledge and established trading routes across four primary sectors.',
+    'it1':'⛽ Energy & Petrochemicals','it2':'🏭 Industrial Equipment','it3':'🌾 Agriculture & Livestock','it4':'🛒 Consumer Products',
+    'en-tag':'Energy & Petrochemicals','en-h':'Petroleum Products <em>& Chemical Feedstocks</em>',
+    'en-desc':'We source, trade and broker petroleum products and petrochemical feedstocks with full documentation, quality certification and compliance.',
+    'in2-tag':'Industrial Equipment','in2-h':'Machinery, Plant Equipment <em>& Technical Components</em>',
+    'in2-desc':'Specialised industrial equipment for petrochemical plants and manufacturing facilities — with technical evaluation and factory inspection.',
+    'ag-tag':'Agriculture & Livestock','ag-h':'Agricultural Commodities <em>& Farming Inputs</em>',
+    'ag-desc':'Agricultural products and livestock nutrition for buyers across the Middle East, Asia and Africa — from verified suppliers with full certification.',
+    'cp-tag':'Consumer Products','cp-h':'FMCG, Personal Care <em>& Food & Beverage</em>',
+    'cp-desc':'International trade in branded and generic consumer goods connecting European manufacturers with wholesale buyers worldwide.',
+    'why-ey':'Our Advantage','why-h1':'Why Choose <em>Caspian Bridge</em>',
+    'why-tag1':'The Difference','why-h2':'Six Reasons Clients <em>Choose Us</em>',
+    'why-intro':'We combine institutional credibility with commercial agility — delivering results through expertise, not promises.',
+    'wh1-t':'UK Registered Company','wh1-d':'Institutional credibility and legal certainty under English law that inspires confidence worldwide.',
+    'wh2-t':'Global Supplier Network','wh2-d':'Verified suppliers across Europe, CIS, Gulf and Asia built through real commercial activity.',
+    'wh3-t':'Multi-Market Experience','wh3-d':'We understand commercial dynamics across every market we serve — anticipating problems before they arise.',
+    'wh4-t':'Professional Procurement Team','wh4-d':'Sector expertise with rigorous commercial and compliance evaluation across all industries.',
+    'wh5-t':'Long-Term Relationships','wh5-d':'A long-term commercial partner investing in understanding your business deeply.',
+    'wh6-t':'Transparent Practices','wh6-d':'Formal written agreements, clear fee disclosure, no hidden charges or surprises.',
+    'proc-tag':'How We Work','proc-h':'Our 5-Step <em>Process</em>',
+    'pr1-t':'Inquiry','pr1-d':'Share requirement — products, quantities, destination and timeline.',
+    'pr2-t':'Assessment','pr2-d':'We assess feasibility and respond within one business day.',
+    'pr3-t':'Sourcing','pr3-d':'We identify and verify qualified suppliers, negotiating terms on your behalf.',
+    'pr4-t':'Agreement','pr4-d':'Formal commercial agreement executed with all terms confirmed.',
+    'pr5-t':'Delivery','pr5-d':'Full logistics, customs and documentation to final delivery.',
+    'ct-ey':'Get In Touch','ct-h1':'Start a <em>Conversation</em>',
+    'ct-info-h':'Contact Information','ct-info-p':'We respond to all serious enquiries within one business day.',
+    'ci-l2':'General Enquiries','ci-l4':'WhatsApp','ci-l5':'Website',
+    'wa-cta':'Chat on WhatsApp',
+    'cf-title':'Send an Enquiry','cf-sub':'Tell us what you need. We will respond within one business day.',
+    'cf-l1':'Full Name *','cf-l2':'Email Address *','cf-l3':'Company','cf-l4':'Country',
+    'cf-l5':'Phone / WhatsApp','cf-l6':'Industry / Sector','cf-l7':'How Can We Help? *',
+    'cf-submit':'SEND MESSAGE — info@caspibridge.com',
+    'ft-desc':'UK-registered international trading, procurement and business consultancy.',
+    'ft1-h':'Company','ft2-h':'Industries','ft3-h':'Services',
+    'ft-copy':'© 2026 <span>Caspian Bridge International Ltd</span>. All Rights Reserved. Registered in England & Wales.',
+    'ct-hrs':'Business Hours (GMT)'
+  },
+  ar:{
+    'nb-sub':'إنترناشيونال المحدودة','nl-home':'الرئيسية','nl-about':'من نحن','nl-services':'الخدمات',
+    'nl-industries':'القطاعات','nl-why':'لماذا نحن','nl-contact':'اتصل بنا','nl-cta':'استفسار','langBtn':'English',
+    'h-eyebrow':'مسجلة في المملكة المتحدة — إنجلترا وويلز',
+    'h-tagline':'نجسر الأسواق. نبني الفرص.',
+    'h-title':'<strong>كاسبيان بريدج</strong><br><em>إنترناشيونال المحدودة</em>',
+    'h-sub':'شركة تجارة دولية ومشتريات واستشارات مسجلة في المملكة المتحدة — تربط الموردين والمشترين عبر <strong>أوروبا والشرق الأوسط وآسيا</strong> وحول العالم.',
+    'h-btn1':'ابدأ استفساراً','h-btn2':'قطاعاتنا',
+    'hs1n':'+3','hs1l':'مناطق متصلة','hs2n':'4','hs2l':'قطاعات رئيسية','hs3n':'عالمي','hs3l':'شبكة توريد','hs4n':'UK','hs4l':'شركة مسجلة',
+    'ph1':'مصفاة نفط','ph2':'صناعة ثقيلة','ph3':'حفر النفط والغاز','ph4':'زراعة',
+    'ind-tag':'القطاعات الرئيسية','ind-h':'ما نتداول <em>ونوفر</em>',
+    'ind-desc':'أربعة قطاعات رئيسية — قدرة فعلية على التوريد والتداول والمشتريات في كل منها.',
+    'ic1-t':'الطاقة والبتروكيماويات','ic1-s':'تداول المنتجات النفطية والمواد الكيميائية الأولية والسلع المكررة.',
+    'ic1p1':'يوريا','ic1p2':'كبريت','ic1p3':'زيت أساسي','ic1p4':'فحم بترولي',
+    'ic2-t':'المعدات الصناعية','ic2-s':'شراء الآلات الصناعية المتخصصة ومعدات المنشآت.',
+    'ic2p1':'معدات العمليات','ic2p2':'آلات ثقيلة','ic2p3':'مكونات',
+    'ic3-t':'الزراعة والثروة الحيوانية','ic3-s':'توريد السلع الزراعية ومنتجات التغذية الحيوانية.',
+    'ic3p1':'حبوب وسكر','ic3p2':'أسمدة','ic3p3':'علف حيواني',
+    'ic4-t':'المنتجات الاستهلاكية','ic4-s':'التجارة الدولية في السلع الاستهلاكية والأغذية.',
+    'ic4p1':'سلع استهلاكية','ic4p2':'عناية شخصية','ic4p3':'أغذية ومشروبات',
+    'fi-tag':'لماذا كاسبيان بريدج','fi-h':'مصداقية بريطانية. <em>انتشار عالمي.</em>',
+    'fi-desc':'بموجب القانون الإنجليزي، نمنح كل معاملة المصداقية المؤسسية واليقين القانوني اللذين يلهمان الثقة على جانبي كل صفقة.','fi-btn':'لماذا تختارنا',
+    'ab-ey':'قصتنا','ab-h1':'عن <em>كاسبيان بريدج</em>',
+    'ab1-tag':'من نحن','ab1-h':'جسر تجاري <em>موثوق</em>',
+    'ab1-p1':'كاسبيان بريدج إنترناشيونال المحدودة <strong>شركة مسجلة في المملكة المتحدة</strong> متخصصة في التجارة الدولية والمشتريات والاستشارات.',
+    'ab1-p2':'مهمتنا إنشاء جسور تجارية موثوقة بين المصنعين والموردين والمشترين عبر <strong>أوروبا والشرق الأوسط وآسيا</strong> وحول العالم.',
+    'ab1-p3':'نعمل في أربعة قطاعات رئيسية — <strong>الطاقة والبتروكيماويات، المعدات الصناعية، الزراعة والثروة الحيوانية، والمنتجات الاستهلاكية</strong>.',
+    'ab-reg-tag':'الوضع القانوني','ab-reg-text':'كاسبيان بريدج إنترناشيونال المحدودة <strong style="color:#fff;">شركة محدودة خاصة مسجلة في إنجلترا وويلز</strong>.',
+    'vmv-tag':'الأسس','vmv-h':'الرؤية والرسالة <em>والقيم</em>',
+    'vmv1-h':'الرؤية','vmv1-t':'أن نصبح من أكثر شركاء التجارة الدولية والمشتريات موثوقية.',
+    'vmv2-h':'الرسالة','vmv2-t':'تقديم حلول شفافة وفعالة للتجارة العالمية وتقليل التعقيد وخلق قيمة تجارية دائمة.',
+    'vmv3-h':'القيم',
+    'geo-tag':'النطاق الجغرافي','geo-h':'أين <em>نعمل</em>',
+    'geo-desc':'بلا حدود جغرافية — نتوريد من الأسواق ونورد لها عبر كل القارات.',
+    'geo1-h':'أوروبا والمملكة المتحدة','geo1-t':'قاعدتنا الرئيسية ومركز التوريد. الإطار القانوني البريطاني والبنية المصرفية والمصداقية المؤسسية.',
+    'geo2-h':'الشرق الأوسط والخليج','geo2-t':'سوقنا الرئيسي. علاقات فعالة في الإمارات وعُمان والسعودية وقطر والكويت.',
+    'geo3-h':'انتشار عالمي','geo3-t':'آسيا وأفريقيا والأمريكتان — أينما توجد فرصة تجارية مؤهلة.',
+    'sv-ey':'خدماتنا','sv-h1':'ما نقدمه <em>لك</em>',
+    'sv-tag':'ست طرق لمساعدتك','sv-h':'خدمات تجارية <em>شاملة</em>',
+    'sv-intro':'من معاملة توريد واحدة إلى برنامج مشتريات متكامل — نقدم النتائج في أي مكان بالعالم.',
+    'sv1-t':'التجارة الدولية','sv1-d':'استيراد وتصدير عبر قطاعات متعددة مع امتثال تام لضوابط التصدير البريطانية.',
+    'sv2-t':'المشتريات العالمية','sv2-d':'دورة مشتريات كاملة من تحديد الموردين حتى التسليم نيابة عنك.',
+    'sv3-t':'التمثيل التجاري','sv3-d':'حضور بريطاني موثوق لتسهيل الوصول إلى الأسواق وتنفيذ الاتفاقيات.',
+    'sv4-t':'استشارات دخول الأسواق','sv4-d':'توجيه استراتيجي للشركات الداخلة إلى الأسواق البريطانية والأوروبية والشرق أوسطية.',
+    'sv5-t':'تيسير العقود','sv5-d':'اتفاقيات تجارية منظمة وسليمة قانونياً وموثقة بشكل صحيح.',
+    'sv6-t':'حلول سلسلة التوريد','sv6-d':'تنسيق متعدد الموردين والشحن والجمارك والتوثيق من المصدر للوجهة.',
+    'in-ey':'قطاعاتنا','in-h1':'الصناعات التي <em>نتداولها ونوفرها</em>',
+    'in-tag':'اختر القطاع','in-h2':'قطاعاتنا <em>التجارية الفعالة</em>',
+    'in-intro':'علاقات موردين حقيقية ومعرفة منتجات موثقة ومسارات تداول راسخة في أربعة قطاعات.',
+    'it1':'⛽ الطاقة والبتروكيماويات','it2':'🏭 المعدات الصناعية','it3':'🌾 الزراعة والثروة الحيوانية','it4':'🛒 المنتجات الاستهلاكية',
+    'en-tag':'الطاقة والبتروكيماويات','en-h':'المنتجات النفطية <em>والمواد الكيميائية الأولية</em>',
+    'en-desc':'نتوريد ونتداول ونتوسط في المنتجات النفطية والمواد البتروكيماوية مع توثيق كامل وشهادات جودة.',
+    'in2-tag':'المعدات الصناعية','in2-h':'الآلات ومعدات المنشآت <em>والمكونات التقنية</em>',
+    'in2-desc':'معدات صناعية متخصصة لمنشآت البتروكيماويات والمصانع مع تقييم تقني وتفتيش على المصانع.',
+    'ag-tag':'الزراعة والثروة الحيوانية','ag-h':'السلع الزراعية <em>ومستلزمات الزراعة</em>',
+    'ag-desc':'منتجات زراعية وتغذية حيوانية للمشترين في الشرق الأوسط وآسيا وأفريقيا من موردين موثقين.',
+    'cp-tag':'المنتجات الاستهلاكية','cp-h':'السلع الاستهلاكية والعناية الشخصية <em>والأغذية</em>',
+    'cp-desc':'تجارة دولية في السلع الاستهلاكية تربط المصنعين الأوروبيين بالمشترين بالجملة حول العالم.',
+    'why-ey':'ميزتنا','why-h1':'لماذا <em>كاسبيان بريدج</em>',
+    'why-tag1':'ما يميزنا','why-h2':'ستة أسباب تجعل العملاء <em>يختاروننا</em>',
+    'why-intro':'نجمع المصداقية المؤسسية مع الرشاقة التجارية — نقدم النتائج بالخبرة لا بالوعود.',
+    'wh1-t':'شركة مسجلة في المملكة المتحدة','wh1-d':'مصداقية مؤسسية ويقين قانوني تحت القانون الإنجليزي.',
+    'wh2-t':'شبكة موردين عالمية','wh2-d':'موردون موثقون عبر أوروبا ورابطة الدول المستقلة والخليج وآسيا.',
+    'wh3-t':'خبرة متعددة الأسواق','wh3-d':'نفهم الديناميكيات التجارية لكل سوق نخدمه.',
+    'wh4-t':'فريق مشتريات متخصص','wh4-d':'خبرة قطاعية مع تقييم صارم للجودة والامتثال.',
+    'wh5-t':'علاقات طويلة الأمد','wh5-d':'شريك تجاري طويل الأمد يستثمر في فهم أعمالك.',
+    'wh6-t':'ممارسات شفافة','wh6-d':'اتفاقيات رسمية وإفصاح واضح عن الرسوم — بلا مفاجآت.',
+    'proc-tag':'كيف نعمل','proc-h':'عمليتنا <em>الخماسية</em>',
+    'pr1-t':'الاستفسار','pr1-d':'تشارك متطلباتك — المنتجات والكميات والوجهة.',
+    'pr2-t':'التقييم','pr2-d':'نقيّم الجدوى ونرد خلال يوم عمل.',
+    'pr3-t':'التوريد','pr3-d':'نحدد الموردين المؤهلين ونتفاوض نيابة عنك.',
+    'pr4-t':'الاتفاقية','pr4-d':'تُبرم الاتفاقية الرسمية مع تأكيد جميع الشروط.',
+    'pr5-t':'التسليم','pr5-d':'تنسيق كامل للوجستيات والجمارك حتى التسليم.',
+    'ct-ey':'تواصل معنا','ct-h1':'ابدأ <em>محادثة</em>',
+    'ct-info-h':'معلومات الاتصال','ct-info-p':'نرد على جميع الاستفسارات الجادة خلال يوم عمل.',
+    'ci-l2':'الاستفسارات العامة','ci-l4':'واتساب','ci-l5':'الموقع الإلكتروني',
+    'wa-cta':'تواصل عبر واتساب',
+    'cf-title':'أرسل استفساراً','cf-sub':'أخبرنا بما تحتاج. سنرد خلال يوم عمل واحد.',
+    'cf-l1':'الاسم الكامل *','cf-l2':'البريد الإلكتروني *','cf-l3':'الشركة','cf-l4':'الدولة',
+    'cf-l5':'الهاتف / واتساب','cf-l6':'القطاع / الصناعة','cf-l7':'كيف يمكننا مساعدتك؟ *',
+    'cf-submit':'إرسال — info@caspibridge.com',
+    'ft-desc':'شركة تجارة دولية ومشتريات مسجلة في المملكة المتحدة.',
+    'ft1-h':'الشركة','ft2-h':'القطاعات','ft3-h':'الخدمات',
+    'ft-copy':'© 2026 <span>كاسبيان بريدج إنترناشيونال المحدودة</span>. جميع الحقوق محفوظة.',
+    'ct-hrs':'ساعات العمل (GMT)'
+  }
+};
+function toggleLang(){
+  isAr=!isAr;
+  const l=isAr?'ar':'en';
+  document.documentElement.setAttribute('lang',l);
+  document.documentElement.setAttribute('dir',isAr?'rtl':'ltr');
+  document.body.classList.toggle('ar',isAr);
+  const t=T[l];
+  Object.keys(t).forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=t[id];});
+  const ph=isAr?{name:'اسمك الكامل',email:'بريدك@الإلكتروني.com',company:'اسم الشركة',country:'دولتك',phone:'+971 50 000 0000',msg:'يرجى وصف متطلباتك...'}:{name:'Your full name',email:'your@email.com',company:'Company name',country:'Your country',phone:'+971 50 000 0000',msg:'Please describe your requirement...'};
+  document.querySelectorAll('input[name=name]').forEach(e=>e.placeholder=ph.name);
+  document.querySelectorAll('input[name=email]').forEach(e=>e.placeholder=ph.email);
+  document.querySelectorAll('input[name=company]').forEach(e=>e.placeholder=ph.company);
+  document.querySelectorAll('input[name=country]').forEach(e=>e.placeholder=ph.country);
+  document.querySelectorAll('input[name=phone]').forEach(e=>e.placeholder=ph.phone);
+  document.querySelectorAll('textarea[name=message]').forEach(e=>e.placeholder=ph.msg);
+}
+</script>
+</body>
+</html>
