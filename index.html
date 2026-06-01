@@ -1,331 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Caspian Bridge International Ltd | Investor Platform</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Caspian Bridge International Ltd – Global Trade & Procurement</title>
+<meta name="description" content="UK-registered international trading, procurement and business consultancy. Bridging Markets. Building Opportunities.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0a1628;
-  --deep:#0d1f3c;
-  --gold:#c9a84c;
-  --gray:#8a9ab5;
-  --white:#fff;
-  --border:rgba(201,168,76,.2);
+  --navy:#0a1628;--deep:#0d1f3c;--darker:#060e1a;
+  --gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e199;
+  --white:#fff;--gray:#8a9ab5;--gray2:#6a7a95;
+  --border:rgba(201,168,76,0.2);--border2:rgba(255,255,255,0.07);
 }
-
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:DM Sans;
-  background:var(--navy);
-  color:#fff;
-  overflow-x:hidden;
-}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+body.ar{font-family:'Noto Sans Arabic',sans-serif;direction:rtl;}
+body.ar *{letter-spacing:0!important;}
 
-/* NAV */
-nav{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:70px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 5%;
-  background:rgba(10,22,40,.95);
-  border-bottom:1px solid var(--border);
-  z-index:999;
-}
+/* cursor (optional but elegant) */
+#cur{position:fixed;width:9px;height:9px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .1s;}
+#cur2{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all .22s ease;opacity:.65;}
+#cur2.big{width:56px;height:56px;opacity:.25;}
 
-.logo{
-  font-family:Cormorant Garamond;
-  color:var(--gold);
-  font-size:20px;
-}
+/* WhatsApp fixed */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:9000;width:58px;height:58px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(37,211,102,.4);text-decoration:none;animation:waPop 3s infinite;}
+.wa-float svg{width:28px;height:28px;}
+body.ar .wa-float{right:auto;left:28px;}
+@keyframes waPop{0%,100%{box-shadow:0 4px 22px rgba(37,211,102,.4);}50%{box-shadow:0 4px 22px rgba(37,211,102,.4),0 0 0 11px rgba(37,211,102,.08);}}
 
-/* BUTTONS */
-.btn{
-  padding:10px 18px;
-  background:var(--gold);
-  color:#0a1628;
-  border:none;
-  cursor:pointer;
-  font-weight:600;
-}
+/* notification toast */
+.notif{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);padding:13px 28px;border-radius:3px;font-size:14px;font-weight:500;z-index:9999;opacity:0;transition:all .4s;pointer-events:none;white-space:nowrap;}
+.notif.on{transform:translateX(-50%) translateY(0);opacity:1;}
 
-.btn2{
-  padding:10px 18px;
-  background:transparent;
-  border:1px solid var(--border);
-  color:#fff;
-  cursor:pointer;
-}
+/* navigation */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:90px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(10,22,40,.97);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .4s;}
+.nav-logo{display:flex;align-items:center;gap:18px;cursor:pointer;text-decoration:none;}
+.nav-logo-img{width:100px;height:100px;object-fit:contain;animation:logoSpinWestEast 16s linear infinite;filter:drop-shadow(0 0 12px rgba(201,168,76,.4));}
+@keyframes logoSpinWestEast { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } /* west → east (clockwise) */
+.nav-brand-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);line-height:1.2;}
+.nav-brand-sub{font-size:9px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none;}
+.nav-links a{font-size:12px;color:var(--gray);cursor:pointer;letter-spacing:.7px;transition:color .3s;position:relative;padding-bottom:3px;text-decoration:none;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{width:100%;}
+body.ar .nav-links a::after{left:auto;right:0;}
+.nav-end{display:flex;align-items:center;gap:12px;}
+.lang-btn{padding:7px 15px;border:1px solid var(--border);background:transparent;color:var(--gold);font-size:11px;letter-spacing:1.5px;cursor:pointer;border-radius:3px;transition:all .3s;font-family:'DM Sans',sans-serif;}
+.lang-btn:hover{background:var(--gold);color:var(--navy);}
+.nav-cta{padding:9px 22px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;transition:all .3s;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(201,168,76,.35);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:22px;height:1.5px;background:var(--white);display:block;}
 
-/* PAGES */
-.page{display:none;padding-top:90px;}
-.page.active{display:block;}
+/* pages */
+.pg{display:none;min-height:100vh;}
+.pg.on{display:block;}
 
-/* HERO */
-.hero{
-  height:100vh;
-  display:flex;
-  align-items:center;
-  padding:0 8%;
-  background:linear-gradient(120deg,#0a1628,#0d1f3c);
-}
+/* reveal */
+.rev{opacity:0;transform:translateY(30px);transition:all .7s ease;}
+.rev.vis{opacity:1;transform:translateY(0);}
 
-.hero h1{
-  font-size:56px;
-  font-family:Cormorant Garamond;
-}
+/* shared elements */
+.section-label{font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.section-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,46px);font-weight:300;line-height:1.1;margin-bottom:14px;}
+.section-h2 em{font-style:italic;color:var(--gold);}
+.gold-rule{width:52px;height:1px;background:linear-gradient(to right,var(--gold),transparent);margin:16px 0 20px;}
+body.ar .gold-rule{background:linear-gradient(to left,var(--gold),transparent);}
+.body-text{font-size:15px;color:var(--gray);line-height:1.9;font-weight:300;}
+.btn-gold{padding:13px 30px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(201,168,76,.4);}
+.btn-ghost{padding:13px 30px;background:transparent;color:var(--white);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);border-radius:3px;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 
-.hero p{color:var(--gray);max-width:600px;margin-top:15px;}
+/* hero slider */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;}
+.hero-slides{position:absolute;inset:0;}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2s ease;}
+.hero-slide.on{opacity:1;}
+.hero-mask{position:absolute;inset:0;background:linear-gradient(108deg,rgba(6,14,26,.96) 0%,rgba(6,14,26,.8) 42%,rgba(6,14,26,.25) 72%,rgba(6,14,26,.04) 100%);}
+.hero-content{position:relative;z-index:2;padding:0 8%;max-width:740px; animation:fadeUp .9s both;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,84px);font-weight:300;line-height:1.02;margin-bottom:22px;}
+.hero-h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:16px;font-weight:300;color:var(--gray);line-height:1.85;margin-bottom:36px;max-width:560px;}
+.hero-btns{display:flex;gap:13px;flex-wrap:wrap;}
+.stats-bar{position:absolute;bottom:0;left:0;right:0;z-index:2;background:rgba(4,10,20,.88);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{padding:20px 24px;border-right:1px solid var(--border);text-align:center;}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--gold);line-height:1;}
+.stat-lbl{font-size:10px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-top:5px;}
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-  margin-top:30px;
-}
+/* industries grid home */
+.industries-section{padding:100px 8%;background:var(--darker);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:55px;}
+.ind-card{padding:40px 30px;background:rgba(13,31,60,.5);border:1px solid var(--border2);transition:all .4s;}
+.ind-card:hover{background:rgba(201,168,76,.07);transform:translateY(-3px);}
+.ind-icon{font-size:36px;margin-bottom:18px;}
+.ind-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;margin-bottom:10px;}
+.ind-products{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+.ind-tag{padding:3px 9px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.85);font-size:10px;border-radius:20px;}
 
-.card{
-  padding:20px;
-  border:1px solid var(--border);
-  background:rgba(13,31,60,.5);
-}
+.why-section{padding:100px 8%;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:50px;}
+.why-card{padding:38px 30px;background:rgba(13,31,60,.4);border:1px solid var(--border2);}
+.why-card:hover{background:rgba(201,168,76,.05);border-color:var(--border);}
+.why-icon{font-size:30px;margin-bottom:14px;}
 
-/* LOGIN */
-.login-box{
-  width:380px;
-  margin:80px auto;
-  padding:30px;
-  border:1px solid var(--border);
-  background:rgba(13,31,60,.6);
-}
+/* photo strip */
+.photo-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:40px;}
+.photo-cell{height:260px;overflow:hidden;position:relative;}
+.photo-cell img{width:100%;height:100%;object-fit:cover;transition:transform .7s;filter:brightness(.65);}
+.photo-cell:hover img{transform:scale(1.06);filter:brightness(.85);}
+.photo-cell-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,26,.82) 0%,transparent 55%);}
+.photo-cell-label{position:absolute;bottom:15px;left:16px;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;z-index:2;}
 
-input,textarea{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  background:#0d1f3c;
-  border:1px solid var(--border);
-  color:#fff;
-}
+/* page hero */
+.page-hero{position:relative;height:340px;display:flex;align-items:flex-end;overflow:hidden;margin-top:76px;}
+.page-hero-mask{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,26,1) 0%,rgba(6,14,26,.55) 55%,rgba(6,14,26,.15) 100%);}
+.page-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.65);}
+.page-hero-inner{position:relative;z-index:2;padding:0 8% 44px;}
+.page-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,58px);font-weight:300;line-height:1.05;}
 
-/* DASHBOARD */
-.dash{
-  display:grid;
-  grid-template-columns:250px 1fr;
-  min-height:100vh;
-}
+/* about */
+.vmv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:50px;}
+.vmv-card{padding:40px 32px;background:rgba(13,31,60,.4);border:1px solid var(--border2);}
+.vmv-h{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--gold);margin-bottom:12px;}
+.values-list li::before{content:'›';color:var(--gold);}
 
-.sidebar{
-  background:#081225;
-  padding:20px;
-  border-right:1px solid var(--border);
-}
+/* services */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:50px;}
+.svc-card{padding:44px 38px;background:rgba(13,31,60,.5);border:1px solid var(--border2);}
+.svc-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-bottom:12px;}
+.svc-list li::before{content:'›';color:var(--gold);}
 
-.sidebar h3{
-  color:var(--gold);
-  margin-bottom:20px;
-}
+/* industries page tabs */
+.ind-tab{padding:10px 22px;background:transparent;border:1px solid var(--border);color:var(--gray);font-size:11px;letter-spacing:1px;cursor:pointer;border-radius:3px;margin-right:5px;margin-bottom:8px;display:inline-block;}
+.ind-tab.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.ind-panel{display:none;}
+.ind-panel.on{display:block;}
+.ind-panel-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px;}
+.ind-panel-img{width:100%;height:320px;object-fit:cover;border-radius:3px;filter:brightness(.8);}
+.product-item{padding:14px 18px;background:rgba(13,31,60,.4);border:1px solid var(--border2);margin-bottom:2px;display:flex;gap:12px;}
 
-.sidebar a{
-  display:block;
-  color:var(--gray);
-  margin:10px 0;
-  cursor:pointer;
-}
+/* contact */
+.contact-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:70px;margin-top:50px;}
+.cinfo-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);}
+.ci-icon{font-size:17px;width:22px;}
+.ci-label{font-size:9px;color:var(--gold);letter-spacing:1.5px;margin-bottom:4px;}
+.ci-val{font-size:14px;color:var(--white);text-decoration:none;}
+.wa-big{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:13px 24px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:3px;text-decoration:none;}
+.cform-wrap{background:rgba(13,31,60,.5);border:1px solid var(--border);padding:44px;border-radius:3px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.fg{margin-bottom:14px;}
+.fg label{display:block;font-size:9.5px;color:var(--gold);letter-spacing:1.5px;margin-bottom:7px;}
+.fg input,.fg select,.fg textarea{width:100%;padding:12px 14px;background:rgba(6,14,26,.8);border:1px solid var(--border);color:white;font-size:13px;border-radius:3px;outline:none;}
+.fg input:focus,.fg textarea:focus{border-color:var(--gold);}
+.fsub{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-weight:600;border:none;border-radius:3px;cursor:pointer;}
 
-.main{
-  padding:30px;
-}
-
-/* CHAT */
-.chat-box{
-  height:300px;
-  border:1px solid var(--border);
-  padding:10px;
-  overflow:auto;
-}
-
-.msg{
-  margin:10px 0;
-  padding:8px;
-  background:rgba(201,168,76,.1);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .grid{grid-template-columns:1fr;}
-  .dash{grid-template-columns:1fr;}
+footer{background:var(--darker);border-top:1px solid var(--border);padding:65px 8% 32px;}
+.footer-logo-img{width:80px;height:80px;object-fit:contain;animation:logoSpinWestEast 16s linear infinite;}
+.footer-logo-row{display:flex;align-items:center;gap:15px;margin-bottom:16px;}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;}
+.footer-desc{font-size:13px;color:var(--gray2);line-height:1.9;}
+@media (max-width: 850px) {
+  .nav-logo-img{width:70px;height:70px;}
+  .hamburger{display:flex;}
+  .nav-links{position:fixed;top:90px;left:-100%;width:70%;height:calc(100vh - 90px);background:rgba(6,14,26,.98);flex-direction:column;padding:40px 30px;transition:left .3s;backdrop-filter:blur(16px);gap:22px;}
+  .nav-links.open{left:0;}
+  .ind-grid,.why-grid,.vmv-grid,.svc-grid{grid-template-columns:1fr;}
+  .contact-layout{grid-template-columns:1fr;}
+  .photo-strip{grid-template-columns:1fr 1fr;}
+  .ind-panel-content{grid-template-columns:1fr;}
+  .stats-bar{display:none;}
 }
 </style>
 </head>
-
 <body>
-
-<!-- NAV -->
+<div id="cur"></div><div id="cur2"></div>
+<div class="wa-float" href="#" id="whatsappBtn"><svg viewBox="0 0 24 24" fill="white"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.5-1.5c1.45.79 3.1 1.22 4.8 1.22 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12 18.5c-1.45 0-2.86-.39-4.08-1.12l-.29-.17-3.31.88.89-3.23-.19-.3a7.96 7.96 0 0 1-1.22-4.15c0-4.42 3.6-8.02 8.02-8.02s8.02 3.6 8.02 8.02-3.6 8.02-8.02 8.02zM16.6 13.8c-.25-.12-1.48-.73-1.71-.81s-.39-.12-.56.12c-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06-.25-.12-1.06-.39-2.01-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.41-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.73 4.31 3.82 2.53 1.09 2.53.73 2.98.68.45-.05 1.45-.59 1.66-1.16.21-.57.21-1.06.15-1.16-.06-.1-.22-.16-.47-.28z"/></svg></div>
+<div class="notif" id="toastMsg">✓ Message sent</div>
 <nav>
-  <div class="logo">Caspian Bridge</div>
-  <div>
-    <button class="btn2" onclick="show('home')">Home</button>
-    <button class="btn2" onclick="show('login')">Login</button>
-    <button class="btn" onclick="show('dashboard')">Dashboard</button>
+  <div class="nav-logo">
+    <img class="nav-logo-img" src="https://cdn-icons-png.flaticon.com/512/2997/2997929.png" alt="Caspian Bridge">
+    <div><div class="nav-brand-name">CASPIAN BRIDGE</div><div class="nav-brand-sub">INTERNATIONAL LTD</div></div>
   </div>
+  <ul class="nav-links">
+    <li><a data-page="home">HOME</a></li>
+    <li><a data-page="about">ABOUT</a></li>
+    <li><a data-page="services">SERVICES</a></li>
+    <li><a data-page="industries">INDUSTRIES</a></li>
+    <li><a data-page="contact">CONTACT</a></li>
+  </ul>
+  <div class="nav-end"><button class="lang-btn" id="langToggle">EN / عربي</button><button class="nav-cta" id="navInquiryBtn">INQUIRE</button><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div>
 </nav>
 
 <!-- HOME -->
-<div id="home" class="page active">
-
+<div id="homePage" class="pg on">
   <div class="hero">
-    <div>
-      <h1>Investor & Global Trading Platform</h1>
-      <p>
-        UK-registered company connecting global trade, investment opportunities and AI-driven market intelligence.
-      </p>
-      <button class="btn" onclick="show('login')">Access Portal</button>
-    </div>
+    <div class="hero-slides"><div class="hero-slide on" style="background-image:url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=1600')"></div><div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1600')"></div><div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b?w=1600')"></div></div>
+    <div class="hero-mask"></div>
+    <div class="hero-content"><div class="hero-h1">Bridging <em>Markets</em><br>Building <strong>Opportunities</strong></div><div class="hero-sub">UK-registered global procurement, heavy equipment supply & industrial trading. Connecting East & West with integrity.</div><div class="hero-btns"><button class="btn-gold" data-page="contact">Partner with us</button><button class="btn-ghost" data-page="industries">Explore sectors</button></div></div>
+    <div class="stats-bar"><div class="stat-item"><div class="stat-num">15+</div><div class="stat-lbl">Years experience</div></div><div class="stat-item"><div class="stat-num">34</div><div class="stat-lbl">Global partners</div></div><div class="stat-item"><div class="stat-num">22</div><div class="stat-lbl">Countries</div></div><div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Compliance</div></div></div>
   </div>
-
-  <section style="padding:80px 8%;">
-    <h2>Core Sectors</h2>
-
-    <div class="grid">
-      <div class="card">Energy & Fuel Trading</div>
-      <div class="card">Industrial Commodities</div>
-      <div class="card">Investment Structuring</div>
-    </div>
-  </section>
-
+  <div class="industries-section"><div class="section-label">core verticals</div><div class="section-h2">Markets we <em>empower</em></div><div class="gold-rule"></div><div class="ind-grid"><div class="ind-card"><div class="ind-icon">🛢️</div><div class="ind-title">Oil & Gas</div><div class="ind-products"><span class="ind-tag">Drill pipes</span><span class="ind-tag">Refinery catalysts</span><span class="ind-tag">Wellheads</span></div></div><div class="ind-card"><div class="ind-icon">🧪</div><div class="ind-title">Petrochemicals</div><div class="ind-products"><span class="ind-tag">Polymers</span><span class="ind-tag">Methanol</span><span class="ind-tag">Base oils</span></div></div><div class="ind-card"><div class="ind-icon">⛏️</div><div class="ind-title">Mining</div><div class="ind-products"><span class="ind-tag">Excavators</span><span class="ind-tag">Mineral processing</span></div></div><div class="ind-card"><div class="ind-icon">🏭</div><div class="ind-title">Heavy Equipment</div><div class="ind-products"><span class="ind-tag">Cranes</span><span class="ind-tag">Drilling rigs</span><span class="ind-tag">Generators</span></div></div></div></div>
+  <div class="why-section"><div class="section-label">why caspian</div><div class="section-h2">Trust & <em>excellence</em></div><div class="gold-rule"></div><div class="why-grid"><div class="why-card"><div class="why-icon">🌍</div><div class="why-title">Global logistics</div><div class="why-text">End-to-end supply chain from Houston to Shanghai, Rotterdam to Dubai.</div></div><div class="why-card"><div class="why-icon">⚖️</div><div class="why-title">Full compliance</div><div class="why-text">UK registered, LC & trade finance, ISO standards and risk management.</div></div><div class="why-card"><div class="why-icon">🤝</div><div class="why-title">Direct sourcing</div><div class="why-text">Manufacturer-level procurement, eliminating intermediaries.</div></div></div></div>
+  <div class="photo-strip"><div class="photo-cell"><img src="https://images.unsplash.com/photo-1581092335879-2c324a7d0a6c?w=800" alt="refinery"><div class="photo-cell-overlay"></div><div class="photo-cell-label">REFINERY</div></div><div class="photo-cell"><img src="https://images.unsplash.com/photo-1581092336561-6f3b1c2a6f1a?w=800" alt="drilling"><div class="photo-cell-overlay"></div><div class="photo-cell-label">DRILLING RIG</div></div><div class="photo-cell"><img src="https://images.unsplash.com/photo-1581092336482-6e6b4b7f5e12?w=800" alt="heavy machinery"><div class="photo-cell-overlay"></div><div class="photo-cell-label">HEAVY EQUIP</div></div><div class="photo-cell"><img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800" alt="industrial"><div class="photo-cell-overlay"></div><div class="photo-cell-label">INDUSTRIAL YARD</div></div></div>
 </div>
 
-<!-- LOGIN -->
-<div id="login" class="page">
-
-  <div class="login-box">
-    <h2>Investor Login</h2>
-
-    <input id="u" placeholder="Username"/>
-    <input id="p" type="password" placeholder="Password"/>
-
-    <button class="btn" onclick="login()">Login</button>
-  </div>
-
-</div>
-
-<!-- DASHBOARD -->
-<div id="dashboard" class="page">
-
-  <div class="dash">
-
-    <div class="sidebar">
-      <h3>Control Panel</h3>
-      <a onclick="tab('overview')">Overview</a>
-      <a onclick="tab('leads')">Leads</a>
-      <a onclick="tab('chat')">AI Assistant</a>
-      <a onclick="logout()">Logout</a>
-    </div>
-
-    <div class="main">
-
-      <div id="overview" class="panel">
-        <h2>Dashboard Overview</h2>
-        <p style="color:var(--gray)">Live business intelligence system (mock)</p>
-      </div>
-
-      <div id="leads" class="panel" style="display:none;">
-        <h2>Leads</h2>
-
-        <textarea id="leadText" placeholder="Enter new lead info..."></textarea>
-        <button class="btn" onclick="saveLead()">Save Lead</button>
-
-        <div id="leadList"></div>
-      </div>
-
-      <div id="chat" class="panel" style="display:none;">
-        <h2>AI Assistant</h2>
-
-        <div class="chat-box" id="chatBox"></div>
-
-        <input id="chatInput" placeholder="Ask something..." />
-        <button class="btn" onclick="sendMsg()">Send</button>
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-
-/* NAV */
-function show(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-/* LOGIN */
-function login(){
-  let u=document.getElementById('u').value;
-  let p=document.getElementById('p').value;
-
-  if(u && p){
-    show('dashboard');
-  }else{
-    alert("Enter credentials");
-  }
-}
-
-/* TABS */
-function tab(id){
-  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
-  document.getElementById(id).style.display='block';
-}
-
-/* LEADS (LOCAL STORAGE DB) */
-function saveLead(){
-  let t=document.getElementById('leadText').value;
-  if(!t) return;
-
-  let leads=JSON.parse(localStorage.getItem('leads')||"[]");
-  leads.push(t);
-  localStorage.setItem('leads',JSON.stringify(leads));
-
-  loadLeads();
-}
-
-function loadLeads(){
-  let leads=JSON.parse(localStorage.getItem('leads')||"[]");
-  document.getElementById('leadList').innerHTML=
-    leads.map(l=>`<div class="card">${l}</div>`).join('');
-}
-
-/* CHAT */
-function sendMsg(){
-  let input=document.getElementById('chatInput');
-  let box=document.getElementById('chatBox');
-
-  box.innerHTML+=`<div class="msg">You: ${input.value}</div>`;
-  box.innerHTML+=`<div class="msg">AI: I am your business assistant (connect API later)</div>`;
-
-  input.value="";
-  box.scrollTop=box.scrollHeight;
-}
-
-/* LOGOUT */
-function logout(){
-  show('home');
-}
-
-loadLeads();
-
-</script>
-
-</body>
-</html>
+<!-- ABOUT -->
+<div id="aboutPage" class="pg"><div class="page-hero"><div class="page-hero-bg" style="backgr 
